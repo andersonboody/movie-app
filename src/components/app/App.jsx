@@ -70,7 +70,7 @@ export default class App extends Component {
       data: arrFilms,
       loading: false,
       errorMassage: null,
-      total: data.total_pages,
+      total: data.total_pages
     })
   }
 
@@ -87,7 +87,7 @@ export default class App extends Component {
   }
   onChangeTitle = (e) => {
     const newTitle = e.target.value
-    this.setState({ title: newTitle })
+    this.setState({ title: newTitle, currentPage: 1, })
     this.debounceMovie(newTitle)
   }
   debounceMovie = debounce(this.fetchMovie, 500)
