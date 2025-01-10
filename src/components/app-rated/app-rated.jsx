@@ -28,17 +28,18 @@ export default class AppRated extends Component {
         star: 0,
       },
     ],
+    total: 1,
   }
 
   render() {
-    const { currentPage, onPageChange, onAddRatingMovie, total } = this.props
+    const { currentPage, onPageChange, onAddRatingMovie } = this.props
     return (
       <AppList
         movie={this.state.data}
         currentPage={currentPage}
         onPageChange={onPageChange}
         onAddRatingMovie={onAddRatingMovie}
-        total={total}
+        total={this.state.total}
       />
     )
   }
