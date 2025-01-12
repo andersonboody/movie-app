@@ -1,45 +1,32 @@
 import { Component } from 'react'
 
 import AppList from '../app-list/app-list.jsx'
+import MovieServer from '../../services/movie-services.js'
+import { loadingMovie } from '../../utils/utils.js'
 
 export default class AppRated extends Component {
+  movieServer = new MovieServer()
   state = {
-    data: [
-      {
-        genres: [16, 12, 35, 10751],
-        id: 1207831,
-        title: 'Gracie & Pedro: Pets to the Rescue',
-        description:
-          'Family frenemies, Gracie and Pedro, must put their differences aside, embarking on a thrilling quest packed with perilous escapades in order to reunite with their owners.',
-        rating: 6.7,
-        poster: '/wuB4CVY3OgH4yVwj1CrS9hUYEje.jpg',
-        date: '2024-05-01',
-        star: 0,
-      },
-      {
-        genres: [16, 12, 35, 10751],
-        id: 1207830,
-        title: 'Gracie & Pedro: Pets to the Rescue',
-        description:
-          'Family frenemies, Gracie and Pedro, must put their differences aside, embarking on a thrilling quest packed with perilous escapades in order to reunite with their owners.',
-        rating: 6.7,
-        poster: '/wuB4CVY3OgH4yVwj1CrS9hUYEje.jpg',
-        date: '2024-05-01',
-        star: 0,
-      },
-    ],
+    films: [],
     total: 1,
+  }
+  componentDidMount() {
+    this.movieServer.getMovieRating().then((data) => {
+      const resolve = loadingMovie(data.results)
+      this.setState({ films: resolve, total: data.total_pages })
+    })
   }
 
   render() {
     const { currentPage, onPageChange, onAddRatingMovie } = this.props
+    const { films, total } = this.state
     return (
       <AppList
-        movie={this.state.data}
+        movie={films}
         currentPage={currentPage}
         onPageChange={onPageChange}
         onAddRatingMovie={onAddRatingMovie}
-        total={this.state.total}
+        total={total}
       />
     )
   }

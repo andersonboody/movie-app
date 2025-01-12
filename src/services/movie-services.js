@@ -1,7 +1,6 @@
 export default class MovieServer {
   static pathPoster = 'https://image.tmdb.org/t/p/w300/'
   baseUrl = 'https://api.themoviedb.org/3/'
-  sessionId = localStorage.getItem('sessionId')
   apiKey = '513bb2185a96d5b7e5709e20e5395b5a'
 
   options = {
@@ -30,8 +29,9 @@ export default class MovieServer {
   }
 
   async addMovieRating(id, rate) {
+    const sessionId = localStorage.getItem('sessionId')
     const response = await fetch(
-      `${this.baseUrl}movie/${id}/rating?guest_session_id=${this.sessionId}&api_key=${this.apiKey}`,
+      `${this.baseUrl}movie/${id}/rating?guest_session_id=${sessionId}&api_key=${this.apiKey}`,
       {
         method: 'POST',
         headers: {
@@ -46,8 +46,9 @@ export default class MovieServer {
   }
 
   async getMovieRating(page = 1) {
+    const sessionId = localStorage.getItem('sessionId')
     const response = await fetch(
-      `${this.baseUrl}guest_session/${this.sessionId}/rated/movies?api_key=${this.apiKey}&language=en-US&page=${page}&sort_by=created_at.asc`,
+      `${this.baseUrl}guest_session/${sessionId}/rated/movies?api_key=${this.apiKey}&language=en-US&page=${page}`,
       {
         method: 'GET',
         headers: {

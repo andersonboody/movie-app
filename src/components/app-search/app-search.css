@@ -1,3 +1,6 @@
-.search {
-  padding-top: 20px;
+@media (max-width:648px) {
+  .search {
+    width: 388px;
+    margin: 0 auto;
+  }
 }

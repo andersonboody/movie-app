@@ -1,5 +1,5 @@
 body {
-  width: 1010px;
+  max-width: 1010px;
   margin: 0 auto;
 }
 p,
@@ -7,7 +7,8 @@ h3 {
   margin: 0;
 }
 .container {
-  width: 938px;
+  max-width: 938px;
+  padding: 0px 5px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

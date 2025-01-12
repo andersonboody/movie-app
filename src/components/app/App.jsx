@@ -8,7 +8,7 @@ import AppList from '../app-list/app-list.jsx'
 import AppSearch from '../app-search/app-search.jsx'
 import AppRated from '../app-rated/app-rated.jsx'
 import { MovieServicesProvider } from '../movie-services-context/movie-services-context.jsx'
-import { reductionStr } from '../../utils/utils.js'
+import { loadingMovie } from '../../utils/utils.js'
 
 export default class App extends Component {
   movieServer = new MovieServer()
@@ -43,35 +43,17 @@ export default class App extends Component {
   fetchMovie = async (newTitle, page = 1) => {
     try {
       this.setState({ loading: true, empty: false })
-      const results = await this.movieServer.getData(newTitle, page)
-      this.loadingMovie(results)
+      const res = await this.movieServer.getData(newTitle, page)
+      const resolve = loadingMovie(res.results)
+      this.setState({
+        data: resolve,
+        loading: false,
+        errorMassage: null,
+        total: res.total_pages,
+      })
     } catch (err) {
       this.errorMovie(err)
     }
-  }
-
-  loadingMovie = (data) => {
-    if (data.results.length === 0) {
-      this.setState({ empty: true })
-    }
-    const arrFilms = data.results.map((film) => {
-      return {
-        id: film.id,
-        title: film.original_title,
-        description: reductionStr(film.overview),
-        date: film.release_date,
-        rating: film.vote_average.toFixed(1),
-        poster: film.poster_path,
-        star: 0,
-        genres: film.genre_ids,
-      }
-    })
-    this.setState({
-      data: arrFilms,
-      loading: false,
-      errorMassage: null,
-      total: data.total_pages
-    })
   }
 
   errorMovie = (err) => {
@@ -87,7 +69,7 @@ export default class App extends Component {
   }
   onChangeTitle = (e) => {
     const newTitle = e.target.value
-    this.setState({ title: newTitle, currentPage: 1, })
+    this.setState({ title: newTitle, currentPage: 1 })
     this.debounceMovie(newTitle)
   }
   debounceMovie = debounce(this.fetchMovie, 500)

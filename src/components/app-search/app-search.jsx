@@ -11,6 +11,8 @@ export default class AppSearch extends Component {
 
   render() {
     const { onChangeTitle, value } = this.props
-    return <Input type="text" placeholder="Type to search..." onChange={onChangeTitle} value={value} />
+    return (
+      <Input type="text" placeholder="Type to search..." onChange={onChangeTitle} value={value} className="search" />
+    )
   }
 }

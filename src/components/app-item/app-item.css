@@ -1,11 +1,11 @@
 .films-list {
-  display: grid;
-  grid-template-columns: repeat(2, 451px);
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   row-gap: 30px;
 }
 .film {
-  width: 451px;
+  max-width: 451px;
   display: flex;
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
 }
@@ -52,4 +52,34 @@
 }
 .ant-rate .ant-rate-star:not(:last-child) {
   margin-inline-end: 3px;
+}
+@media (max-width:648px) {
+  .films-list {
+    justify-content: center;
+  }
+  .film {
+    width: 388px;
+    position: relative;
+  }
+  .films__image {
+    width: 60px;
+    height: 91px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  .film-content {
+    padding-top: 5px;
+  }
+  .film-content__title {
+    font-size: 16px;
+  }
+  .film-content__header,
+  .film-content__date,
+  .film-content__genre-list {
+    margin-left: 65px;
+  }
+  .film-content__star {
+    align-self: self-end;
+  }
 }

@@ -71,6 +71,7 @@ export default class AppItem extends Component {
                 </div>
                 <p className="film-content__description">{film.description}</p>
                 <Rate
+                  className="film-content__star"
                   allowHalf
                   defaultValue={0}
                   count={10}
