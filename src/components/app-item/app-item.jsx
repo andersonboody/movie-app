@@ -17,13 +17,13 @@ export default class AppItem extends Component {
   }
   getRatingStyle = (rating) => {
     if (rating < 3) {
-      return { border: '2px solid #E90000' }
+      return 'film-content__rating-red'
     } else if (rating >= 3 && rating < 5) {
-      return { border: '2px solid #E97E00' }
+      return 'film-content__rating-orange'
     } else if (rating >= 5 && rating < 7) {
-      return { border: '2px solid #E9D100' }
+      return 'film-content__rating-yellow'
     } else {
-      return { border: '2px solid #66E900' }
+      return 'film-content__rating-green'
     }
   }
   getGenreName = (genres) => {
@@ -53,9 +53,7 @@ export default class AppItem extends Component {
               <div className="film-content">
                 <div className="film-content__header">
                   <h3 className="film-content__title">{film.title}</h3>
-                  <p className="film-content__rating" style={this.getRatingStyle(film.rating)}>
-                    {film.rating}
-                  </p>
+                  <p className={`film-content__rating ${this.getRatingStyle(film.rating)}`}>{film.rating}</p>
                 </div>
                 <p className="film-content__date">
                   {film.date ? format(parseISO(film.date), 'LLLL d, yyyy', { locale: enUS }) : 'Дата не указана'}

@@ -56,6 +56,9 @@ export default class MovieServer {
         },
       }
     )
+    if (!response.ok) {
+      throw new Error(`${response.status}`)
+    }
     const resolve = await response.json()
     return resolve
   }

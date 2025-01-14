@@ -26,7 +26,7 @@ export default class App extends Component {
     error: false,
     errorMassage: null,
     currentPage: 1,
-    total: 1,
+    total: null,
   }
 
   onTabChange = (activeTab) => {
@@ -42,20 +42,27 @@ export default class App extends Component {
 
   fetchMovie = async (newTitle, page = 1) => {
     try {
+      if (newTitle.length === 0) {
+        return this.setState({ data: [] })
+      }
       this.setState({ loading: true, empty: false })
       const res = await this.movieServer.getData(newTitle, page)
-      const resolve = loadingMovie(res.results)
-      this.setState({
-        data: resolve,
-        loading: false,
-        errorMassage: null,
-        total: res.total_pages,
-      })
+      if (res.results.length === 0) {
+        this.setState({ empty: true, loading: false })
+      } else {
+        const resolve = loadingMovie(res.results)
+        this.setState({
+          data: resolve,
+          loading: false,
+          error: false,
+          errorMassage: null,
+          total: res.total_pages,
+        })
+      }
     } catch (err) {
       this.errorMovie(err)
     }
   }
-
   errorMovie = (err) => {
     let message = err.message
     if (message.includes('Failed to fetch')) {
@@ -113,12 +120,7 @@ export default class App extends Component {
               />
             </>
           ) : (
-            <AppRated
-              currentPage={currentPage}
-              onPageChange={this.onPageChange}
-              onAddRatingMovie={this.onAddRatingMovie}
-              total={total}
-            />
+            <AppRated onAddRatingMovie={this.onAddRatingMovie} />
           )}
         </div>
       </MovieServicesProvider>

@@ -7,7 +7,7 @@ const AppError = ({ messageError }) => {
 }
 const AppNoFilms = () => {
   const message = 'Не смогли найти указанный фильм'
-  return <Alert message={message} type="success" />
+  return <Alert message={message} type="success" closable />
 }
 const AppSpin = () => {
   const message = 'Подождите, данные сейчас загрузятся'

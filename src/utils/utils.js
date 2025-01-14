@@ -1,17 +1,14 @@
 const reductionStr = (str) => {
   let newStr = ''
   const arrStr = str.split(' ')
-  if (arrStr.length <= 38) {
+  if (arrStr.length <= 22) {
     return str
   } else {
-    newStr = arrStr.slice(0, 38).join(' ')
+    newStr = arrStr.slice(0, 22).join(' ')
   }
   return `${newStr} ... `
 }
 const loadingMovie = (data) => {
-  if (data.length === 0) {
-    this.setState({ empty: true })
-  }
   const arrFilms = data.map((film) => {
     return {
       id: film.id,

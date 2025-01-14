@@ -20,6 +20,7 @@ export default class AppPagination extends Component {
         onChange={onPageChange}
         showSizeChanger={false}
         total={total}
+        pageSize={1}
       />
     )
   }

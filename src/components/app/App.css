@@ -1,11 +1,15 @@
 body {
   max-width: 1010px;
   margin: 0 auto;
+  font-family: "Inter", serif;
+  font-weight: 400;
+  font-size: 12px;
 }
 p,
 h3 {
   margin: 0;
 }
+
 .container {
   max-width: 938px;
   padding: 0px 5px;
